@@ -1,0 +1,44 @@
+Sub StockMarket():
+RowCount = Cells(Rows.Count, "A").End(xlUp).Row
+For i = 2 To RowCount
+
+Dim Ticker As String
+Dim OpenAmount As Long
+Dim ClosingAmount As Long
+Dim Volume As Long
+Dim Change As Long
+Dim Total As Long
+
+Ticker = Cells(i, 1).Value
+OpenAmount = Cells(i, 3).Value
+ClosingAmount = Cells(i, 6).Value
+Volume = Cells(i, 7).Value
+Change = Cells(i, 9).Value
+Total = 0
+
+
+If Cells(i + 1, 1) = "A" Then
+    Cells(i, 8).Value = Ticker
+    Cells(i, 9).Value = ClosingAmount - OpenAmount
+    Cells(i, 10).Value = (Change / Cells(i, 3) * 100)
+    Cells(i, 11).Value = Total + Cells(i, 7).Value
+    Total = Total + 1
+    
+ElseIf Cells(i + 1, 1) <> Cells(i + 1, 1) Then
+    Cells(i, 8).Value = Ticker
+    Cells(i, 9).Value = ClosingAmount - OpenAmount
+    Cells(i, 10).Value = (Change / Cells(i, 3) * 100)
+    Cells(i, 11).Value = Total + Cells(i, 7).Value
+    Total = Total + 1
+    
+End If
+
+If Cells(i, 9).Value >= "-.01" Then
+    Cells(i, 9).Interior.ColorIndex = 3
+ElseIf Cells(i, 9).Value <= ".01" Then
+    Cells(i, 9).Interior.ColorIndex = 4
+
+End If
+Next i
+
+End Sub
